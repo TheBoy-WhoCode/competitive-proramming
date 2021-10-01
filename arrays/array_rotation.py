@@ -23,24 +23,20 @@ def method2(d, n, ar):
     print(ar)
 
 # Method3 using GCD of n and d
+# Time complexity O(n)
 def method3(d, n, ar):
     d  = d % n
     greatest_common_div = gcd(d, n)
-    print("Value of D: ", d)
-    print("Value of GCD: ", greatest_common_div)
     for i in range(greatest_common_div):
         temp = ar[i]
         j = i
-        print("Value of j: ", j)
         while True:
             k = j + d
-            print("Value of k: ", k)
             if k >= n:
                 k = k-n
             if k == i:
                 break
             ar[j] = ar[k]
-            print("Value of ar[j]: ", ar[j])
             j = k
         ar[j] = temp
 
@@ -52,11 +48,29 @@ def gcd(d, n):
     else:
         return gcd(n, d % n)
 
+# Method 4 Reversal Algorithm
+# Time Complexity O(n)
+def method4(d, n, ar):
+    if d == 0:
+        return
+    d = d % n
+    reversalAlgo(ar, 0, d-1)
+    reversalAlgo(ar, d, n-1)
+    reversalAlgo(ar, 0, n-1)
+    print(ar)
+
+def reversalAlgo(ar, start, end):
+    while (start < end):
+        temp = ar[start]
+        ar[start] = ar[end]
+        ar[end] = temp
+        start += 1
+        end -= 1
 
 if __name__ == "__main__":
     d = int(input("Please Enter d value\n"))
     n = int(input("Please Enter Size (N) and space seprated array values\n"))
     ar = list(map(int, input().rstrip().split()))
     
-    method3(d, n, ar)
+    method4(d, n, ar)
 
